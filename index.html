@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+	<!-- font awesome -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<!-- sweet alert -->
+<!-- 	<script src="sweet-alert.min.js"></script>
+	<link rel="stylesheet" href="sweet-alert.css" /> -->
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js"></script>
+
+	<!-- style sheet -->
+	<link rel="stylesheet" href="style.css">
+  <!-- angular -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <!-- js stuff in public; -->
+  <script src="module.js"></script>
+  <script src="controllers.js"></script>
+  <script src="services.js"></script>
+</head>
+
+
+<!-- HEROKU -->
+<!-- https://git.heroku.com/frozen-spire-45844.git -->
+
+
+<!-- use ng-src= {{ newSku.img }} -->
+
+<body ng-app="skuApp" ng-controller="skuController">
+
+<!--     <script type="text/javascript" src="libs/sweet-alert.min.js"></script>
+    <script type="text/javascript" src="libs/angular.min.js"></script>
+    <script type="text/javascript" src="ngSweetAlert.js"></script> -->
+
+	<div class="jumbotron">
+	  <div class="container">
+	    <h1>Welcome to Produce and Denim</h1>
+	  	<h3><em>Not enough genes? try shopping with other vegetables!!!!!!!!</em></h3>
+	  </div>
+	</div>
+
+	<input ng-model="newSku.img" type="text" placeholder="use https://goo.gl/">
+	<input ng-model="newSku.item" type="text" placeholder="grocery item">
+  <input ng-model="newSku.quantity" type="text" placeholder="quantity">
+  <input ng-model="newSku.price" type="text" placeholder="price">
+  <button ng-click="addSku()">add item to cart</button>
+
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<td>Pretty Pic!</td>
+				<td>Grocery</td>
+				<td>Quantity</td>
+				<td>Price</td>
+				<td>Edit?</td>
+				<td>Delete??</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="sku in skus track by $index">
+				<td><img ng-src="{{ sku.img }}" alt=""></td>
+				<td> {{ sku.item }} </td>
+				<td> {{ sku.quantity }} </td>
+				<td> {{ sku.price | currency }} </td>
+				<td>
+					<button ng-click="editSku()">
+					<i class="fa fa-pencil"></i>
+					</button>
+				</td>
+				<td>
+					<button ng-click="removeSku(sku)">
+					<i class="fa fa-trash"></i>
+					</button>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+	<!-- ng-show button when edit button clicked -->
+	<div ng-show="skuToEdit">
+		<input ng-model="skuToEdit.item" type="text" placeholder="grocery item">
+	  <input ng-model="skuToEdit.quantity" type="text" placeholder="quantity">
+	  <input ng-model="skuToEdit.price" type="text" placeholder="price">
+		<button ng-click="confirmEdit()"><i class="fa fa-pencil"></i>
+		</button>
+	  <button ng-click="cancelEdit(sku)"><i class="fa fa-trash"></i>
+		</button>
+	</div>
+
+<!-- trying to -->
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div ng-repeat = "sku in skus track by $index"class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          <div>
+          	You've added {{ sku.quantity }} {{ sku.item }}s to your cart!
+          </div>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+				<div class="row">
+					<div>
+					{{ sku.price | currency }}
+					<img ng-src="{{ sku.img }}" alt="">
+					</div>
+				</div>
+				<button ng-click="editSku()">
+				<i class="fa fa-pencil"></i>
+				</button>
+				<button ng-click="removeSku(sku)">
+				<i class="fa fa-trash"></i>
+				</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div>
+	<button id="checkout">
+		checkout
+	</button>
+</div>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
